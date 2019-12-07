@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kyungho.mapper.CalendarMapper">
+
+	<resultMap id="calendarMap" type="kr.kyungho.domain.CalendarVO">
+		<result column="cal_caltype" property="calendarType"/>
+		<result column="cal_cno" property="cno"/>
+		<result column="cal_title" property="title"/>
+		<result column="cal_start" property="start"/>
+		<result column="cal_end" property="end"/>
+		<result column="cal_description" property="description"/>
+		<result column="cal_type" property="type"/>
+		<result column="cal_username" property="username"/>
+		<result column="cal_userid" property="userid"/>
+		<result column="cal_backgroundcolor" property="backgroundColor"/>
+		<result column="cal_textcolor" property="textColor"/>
+		<result column="allday" property="allDay"/>
+	</resultMap>
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<trim prefix="OR">
+				<choose>
+					<when test="calendarType.equals('company')">
+						cal_caltype = 'company'
+					</when>
+					<when test="calendarType.equals('user')">
+						cal_caltype = 'user' and
+						cal_userid = #{userid}
+					</when>	
+				</choose>
+			</trim>
+		</trim>
+	</sql>
+	
+	<select id="searchSchedule" resultMap="calendarMap">
+		select * from tbl_calendar where 
+		<include refid="criteria"></include> 
+		cal_end between #{start} and #{end} 	
+	</select>
+	
+	<insert id="addEvent">
+		insert into tbl_calendar
+		(cal_cno, cal_title, cal_start, cal_end, cal_description,
+		cal_type, cal_username, cal_userid, cal_backgroundcolor, cal_textcolor, allday, cal_caltype)
+		values
+		(seq_cmp_calendar.nextval, #{title}, #{start}, #{end}, #{description},
+		#{type}, #{username}, #{userid}, #{backgroundColor}, #{textColor}, #{allDay}, #{calendarType})
+	</insert>
+	
+	<update id="updateEvent">
+		update tbl_calendar set 
+		cal_title=#{title}, cal_start=#{realStart}, cal_end=#{realEnd}, cal_description=#{description},
+		cal_type=#{type}, cal_backgroundcolor = #{backgroundColor}, allday=#{allDay}, cal_caltype=#{calendarType}
+		where cal_cno=#{cno}
+	</update> 
+	
+	<delete id="removeEvent">
+		delete from tbl_calendar where cal_cno = #{cno}
+	</delete>
+	
+	<update id="dragnDropEvent">
+		update tbl_calendar
+		set cal_start = #{realStart}, cal_end = #{realEnd}
+		where cal_cno = #{cno}
+	</update>
+</mapper>
+
+
+
+	
+	
+	
+
+
+

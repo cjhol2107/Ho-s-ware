@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kyungho.mapper.MemberMapper">
+
+  <resultMap type="kr.kyungho.domain.MemberVO" id="memberMap">
+    <id property="userid" column="userid"/>
+    <result property="userid" column="userid"/>
+    <result property="emp_num" column="emp_num"/>
+    <result property="userpw" column="userpw"/>
+    <result property="userName" column="username"/>
+    <result property="regDate" column="regdate"/>
+    <result property="realRegDate" column="realRegDate"/>
+    <result property="updateDate" column="updatedate"/>
+    <result property="email" column="email"/>
+    <result property="depName" column="depname"/>
+    <result property="member_position" column="member_position"/>
+    <result property="phoneNumber" column="phoneNumber"/>
+    <result property="extensionNumber" column="extensionNumber"/>
+    <result property="address" column="address"/>
+    <result property="sign_fileName" column="sign_fileName"/>
+    <collection property="authList" resultMap="authMap">
+    </collection> 
+  </resultMap>
+  
+  <resultMap type="kr.kyungho.domain.AuthVO" id="authMap">
+    <result property="userid" column="userid"/>
+    <result property="auth" column="auth"/>
+  </resultMap>
+  
+  <sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'D'.toString()">
+							depname like '%' ||#{keyword}||'%'
+						</when>
+						<when test="type == 'N'.toString()">
+							username like '%' ||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+  
+  <select id="read" resultMap="memberMap">
+SELECT 
+  mem.userid,  userpw, username, enabled, regdate, updatedate, email, auth, depname, member_position
+FROM 
+  tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.userid = auth.userid 
+WHERE mem.userid = #{userid} 
+  </select>
+  
+  <select id="idcheck" resultType="int">
+  	select count(userid) from tbl_member
+  	where userid = #{userid}
+  	
+  </select>
+  
+  <!-- 사원정보 insert -->
+  <insert id="insertMemberInfo" >
+  		<selectKey keyProperty="emp_num" order="BEFORE"
+			resultType="long">
+			select seq_tbl_member.nextval from dual
+		</selectKey>
+
+   	insert into tbl_member(emp_num, userid, userpw, username, realRegDate, email,
+   					member_position, depname, phoneNumber, extensionNumber, address)
+   	values(#{emp_num}, #{userid}, #{userpw}, #{userName}, #{realRegDate}, #{email},
+   			#{member_position}, #{depName}, #{phoneNumber}, #{extensionNumber}, #{address})
+  </insert>
+  
+  <insert id="insertMemberAuth">
+  	insert into tbl_member_auth values(#{userid},'ROLE_USER')
+  </insert>
+  
+  <!-- 사진파일 insert -->
+  <insert id="insertMemberPhoto">
+  	insert into tbl_attach(uuid, uploadpath, filename, filetype, userid)
+  	values(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{userid})
+  </insert>
+
+	<select id="getMemberList" resultMap="memberMap">
+	<![CDATA[
+		select userid, username, member_position, depname, phoneNumber, extensionNumber, email, emp_num from 
+		( 
+			select /*+INDEX_DESC(tbl_member userid)*/ 
+				rownum rn, userid, username, member_position, depname, phoneNumber, extensionNumber, email, emp_num
+			from tbl_member 
+			where 
+			]]>	
+			<include refid="criteria"></include>
+			<![CDATA[	
+			
+			rownum <= #{pageNum} * #{amount}
+		)
+		where rn> (#{pageNum}-1) * #{amount}  
+	]]>
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tbl_member where
+		<include refid="criteria"></include>
+		emp_num > 0
+	</select>
+	
+	<select id="getMemberInfo" resultMap="memberMap">
+		select * from tbl_member where emp_num=#{emp_num}
+	</select>
+	
+	<select id="getUserId" resultType="String">
+		select userid from tbl_member where emp_num=#{emp_num}
+	</select>
+	
+	<!-- 상세조회 사인 load -->
+	<select id="getPhoto" resultType="kr.kyungho.domain.AttachVO">
+		select * from tbl_attach where userid = #{userid}
+	</select>
+	
+	<update id="updateMemberInfo">
+		update tbl_member set userpw=#{userpw}, username=#{userName}, email=#{email},
+							  depname=#{depName}, member_position=#{member_position},
+							  phoneNumber=#{phoneNumber}, extensionNumber=#{extensionNumber},
+							  address=#{address}, realRegDate=#{realRegDate}
+		                  where emp_num = #{emp_num}
+	</update>
+	
+	<!-- 사원 삭제(사진, 권한, 멤버테이블) -->
+	<delete id="deleteMemberAttach">
+		delete from tbl_attach where userid=#{userid}
+	</delete>
+	
+	<delete id="deleteMemberAuth">
+		delete from tbl_member_auth where userid=#{userid}
+	</delete>
+	
+	<delete id="deleteMember">
+		delete from tbl_member where userid=#{userid}
+	</delete>
+	
+
+
+</mapper>
+
+
+
+	
+	
+	
+
+
+

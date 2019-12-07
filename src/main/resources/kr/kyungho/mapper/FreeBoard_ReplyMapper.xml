@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kyungho.mapper.FreeBoard_ReplyMapper">
+
+	<insert id="insert">
+		insert into freeboard_reply(rno, bno, reply, replyer)
+		values(seq_freeboard_reply.nextval, #{bno}, #{reply}, #{replyer})
+	</insert>
+	
+	<select id="read" resultType="kr.kyungho.domain.FreeBoard_ReplyVO">
+		select * from freeboard_reply where rno = #{rno}
+	</select>
+	
+	<delete id="delete">
+		delete from freeboard_reply where rno = #{rno}
+	</delete>
+	
+	<update id="update">
+		update freeboard_reply set reply = #{reply}, updatedate = sysdate
+		where rno = #{rno}
+	</update>
+	
+	<select id="getListWithPaging" resultType="kr.kyungho.domain.FreeBoard_ReplyVO">
+		select rno, bno, reply, replyer, replyDate, updateDate 
+		from freeboard_reply 
+		where bno = #{bno}
+		order by rno asc
+	</select>
+</mapper>
