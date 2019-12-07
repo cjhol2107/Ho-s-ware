@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kyungho.mapper.EmailMapper">
+
+  <sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+					<foreach item='type' collection="typeArr">
+						<trim prefix="OR">
+							<choose>
+								<when test="type == 'T'.toString()">
+									eml_title like '%' ||#{keyword}||'%'
+								</when>
+								<when test="type == 'C'.toString()">
+									eml_content like '%' ||#{keyword}||'%'
+								</when>
+								<when test="type == 'S'.toString()">
+									eml_sndid like '%' ||#{keyword}||'%'
+								</when>
+								<when test="type == 'R'.toString()">
+									eml_rcvid like '%' ||#{keyword}||'%'
+								</when>
+							</choose>
+						</trim>
+					</foreach>
+		</trim>
+	</sql>
+	
+	<select id="getReceiveMail" resultType="kr.kyungho.domain.EmailVO">
+		<![CDATA[
+		select eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid, eml_rcv_del, eml_snd_del, snddate, eml_read from 
+		(
+			select /*+INDEX_DESC(tbl_email pk_tbl_email)*/ 
+				rownum rn, eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid, eml_rcv_del, eml_snd_del, snddate, eml_read
+			from tbl_email
+			where 
+		]]>	
+			<include refid="criteria"></include>
+		
+		<![CDATA[	
+			rownum <= #{pageNum} * #{amount}
+			and eml_rcvid=#{userid}
+			and eml_rcv_del='N'
+			
+		)
+		where rn> (#{pageNum} -1) * #{amount}
+		and eml_rcvid=#{userid}
+		and eml_rcv_del='N'
+		
+		]]>
+	</select>
+	
+	<select id="getSendMail" resultType="kr.kyungho.domain.EmailVO">
+		<![CDATA[
+		select eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid, eml_rcv_del, eml_snd_del, snddate, eml_read from
+		(
+			select /*+INDEX_DESC(tbl_email pk_tbl_email)*/ 
+				rownum rn, eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid, eml_rcv_del, eml_snd_del, snddate, eml_read
+			from tbl_email
+			where 
+		]]>	
+			<include refid="criteria"></include>
+		
+		<![CDATA[	
+			rownum <= #{pageNum} * #{amount}
+			and eml_sndid=#{userid}
+			and eml_snd_del='N'
+			
+		)
+		where rn> (#{pageNum} -1) * #{amount}
+		and eml_sndid=#{userid}
+		and eml_snd_del='N'
+		
+		]]>
+	</select>
+	<select id="getToMe" resultType="kr.kyungho.domain.EmailVO">
+		<![CDATA[
+		select eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid, eml_rcv_del, eml_snd_del, snddate from
+		(
+			select /*+INDEX_DESC(tbl_email pk_tbl_email)*/ 
+				rownum rn, eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid, eml_rcv_del, eml_snd_del, snddate
+			from tbl_email
+			where 
+		]]>	
+			<include refid="criteria"></include>
+		
+		<![CDATA[	
+			rownum <= #{pageNum} * #{amount}
+			and eml_sndid=#{userid}
+			and eml_rcvid=#{userid}
+			
+		)
+		where rn> (#{pageNum} -1) * #{amount}
+		and eml_sndid=#{userid}
+		and eml_rcvid=#{userid}
+		
+		]]>
+	</select>
+	
+	<insert id="sendMail">
+		insert into tbl_email(eml_eno, eml_title, eml_content, eml_sndid, eml_rcvid)
+		values(seq_email_eno.nextval, #{eml_title}, #{eml_content}, #{eml_sndid}, #{eml_rcvid})
+	</insert>
+	
+	<delete id="deleteMail">
+		delete from tbl_email where eml_eno = #{eml_eno}
+	</delete>
+	
+	<select id="sendDelCheck" resultType="String">
+		select eml_snd_del from tbl_email where eml_eno = #{eml_eno}
+	</select>
+	
+	<update id="updateReceiveDel">
+		update tbl_email set eml_rcv_del = 'Y' where eml_eno = #{eml_eno}
+	</update>
+	
+	<select id="receiveDelCheck" resultType="String">
+		select eml_rcv_del from tbl_email where eml_eno = #{eml_eno}
+	</select>
+	
+	<update id="updateSendDel">
+		update tbl_email set eml_snd_del = 'Y' where eml_eno = #{eml_eno}
+	</update>
+	
+	<select id="getMail" resultType="kr.kyungho.domain.EmailVO">
+		select * from tbl_email where eml_eno = #{eml_eno}
+	</select>
+	
+	<select id="getReceiveMailTotal" resultType="int">
+		select count(*) from tbl_email where eml_rcvid = #{userid} and eml_rcv_del='N'
+	</select>
+  
+  	<select id="getSendMailTotal" resultType="int">
+		select count(*) from tbl_email where eml_sndid = #{userid} and eml_snd_del='N'
+  	</select>
+  	
+  	<select id="getToMetotal" resultType="int">
+  	
+		select count(*) from tbl_email 
+		where eml_rcvid = #{userid} and eml_sndid = #{userid}
+		
+  	</select>
+  	
+  	<update id="updateEmlRead">
+  		update tbl_email set eml_read = 'Y' where eml_eno = #{eml_eno}
+  	</update>
+  		
+  	<select id="cntUnread" resultType="int">
+  		select count(eml_read) from tbl_email where eml_read='N' and eml_rcvid = #{userid}
+  	</select>
+  	
+  	<delete id="deleteReadMail">
+  		delete from tbl_email where eml_read='Y' and eml_rcvid= #{userid}
+  	</delete>
+</mapper>
+
+
+
+	
+	
+	
+
+
+

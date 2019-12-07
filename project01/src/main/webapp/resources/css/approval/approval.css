@@ -1,0 +1,77 @@
+.uploadResult ul {
+	padding-inline-start: 0px;
+}
+.uploadResult ul li {
+	list-style: none;
+	padding-inline-start: 0px;
+	padding-right:0px;
+	width:100%;
+}
+
+.uploadResult{
+	padding-bottom:17px;
+}
+
+.pagewrap{
+	padding-left: 25%; 
+	padding-right: 25%; 
+	padding-top: 50px; 
+	padding-bottom: 200px
+}
+
+.fileInputDiv{
+	padding-bottom:0px;
+}
+
+.add-commentDiv{
+	padding-bottom:17px;
+}
+
+.add-commentInput{
+	height:60px;
+}
+
+.get-titlewrap{
+	padding-left:0px; 
+	padding-bottom:20px;
+}
+
+.get-title{
+	padding-left:0px; 
+	width:350px;
+}
+
+.get-divider{
+	padding-top:20px;
+} 
+.get-divider10{
+	padding-bottom:10px;
+}
+
+.get-apvlineTitle{
+	padding-bottom:15px;
+}
+
+.signTable{
+	margin-bottom:0px;
+}
+
+.search{
+	padding-left:0px;
+}
+.listBtnSpan{
+	width:150px;
+}
+
+.addbtn{
+	padding-right:0px;
+}
+
+.table-hover{
+	margin-bottom:0px;
+}
+
+.customtd.chktd{
+	width:50px; 
+	padding-left:17px;
+}

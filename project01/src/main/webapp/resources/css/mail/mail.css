@@ -1,0 +1,32 @@
+.search{
+	padding-left:0px;
+}
+
+.searchBtnSpan{
+	width:150px;
+}
+.regBtnDiv{
+	padding-right:0px;
+}
+
+.rowdiv{
+	padding-bottom:5px;
+}
+.row.rowdiv{
+	padding-bottom:5px;
+}
+.rcvid,
+.snddate{
+	width:20%;
+}
+
+.panel.panel-default.read{
+	margin-bottom:5px;
+}
+
+.pagewrap{
+	padding-left: 25%; 
+	padding-right: 25%; 
+	padding-top: 50px; 
+	padding-bottom: 200px
+}
