@@ -1,0 +1,59 @@
+.table>tbody>tr>td{
+		padding-top:15px;
+		padding-bottom:15px;
+	}
+.table>tbody>tr>th{
+	font-size:14px;
+	padding-left:20px;
+	font-weight:normal;
+}
+.col-xs-1{
+	padding-top:5px;
+}
+.col-lg-12{
+	padding-left:0px;
+}
+.col-xs-3{
+	padding-left:0px;
+}
+.col-lg-4, col-lg-8, col-lg-3{
+	padding-left:0px;
+	padding-right:0px;
+}
+.ui-datepicker-trigger{cursor: pointer;}
+.uploadResult ul {
+	padding-inline-start: 0px;
+}
+.uploadResult ul li {
+	list-style: none;
+	padding-inline-start: 0px;
+	padding-right:0px;
+	width:100%;
+}
+
+.pagewrap{
+	padding-left: 25%; 
+	padding-right: 25%; 
+	padding-top: 50px; 
+	padding-bottom: 200px
+}
+.get-head{
+	font-size:20px;
+	font-weight:bold;
+}
+
+.get-sub{
+font-size:15px;
+font-weight:normal;
+}
+
+.get-first-box{
+	padding-top:35px;
+}
+get-2nd-box{
+	padding-top:35px;
+	padding-left:15px;
+}
+.btndiv{
+	padding-bottom:10px;
+}

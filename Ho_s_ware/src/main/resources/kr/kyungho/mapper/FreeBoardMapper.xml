@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kyungho.mapper.FreeBoardMapper">
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%' ||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%' ||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%' ||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	
+	<select id="getList" resultType="kr.kyungho.domain.FreeBoardVO">
+		<![CDATA[
+		
+			select * from board_free where bno>0
+		
+		]]>
+	</select>
+	
+	
+	<select id="getListWithPaging" resultType="kr.kyungho.domain.FreeBoardVO">
+		<![CDATA[
+		select bno, title, content, writer, regdate, updatedate, replycnt, views, likes from 
+		(
+			select /*+INDEX_DESC(board_free pk_board_free)*/
+				rownum rn, bno, title, content, writer, regdate, updatedate, replycnt, views, likes
+			from board_free
+			where 
+		]]>	
+			<include refid="criteria"></include>
+		
+		<![CDATA[	
+			rownum <= #{pageNum} * #{amount}
+		)
+		where rn> (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+
+
+	<insert id="insert">
+		insert into board_free(bno,title,content,writer)
+		values(seq_board_free.nextval, #{title}, #{content}, #{writer})
+	</insert>
+
+
+	<!-- insert 후 bno 를 알 수 없음(null) // bno를 미리 획득 -->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE"
+			resultType="long">
+			select seq_board_free.nextval from dual
+		</selectKey>
+
+		insert into board_free(bno,title,content,writer)
+		values(#{bno},
+		#{title}, #{content}, #{writer})
+	</insert>
+
+
+	<select id="read" resultType="kr.kyungho.domain.FreeBoardVO">
+		select * from board_free where bno
+		= #{bno}
+	</select>
+
+
+	<delete id="delete">
+		delete from board_free where bno= #{bno}
+	</delete>
+
+
+	<update id="update">
+		update board_free
+		set title=#{title},
+		content=#{content},
+		writer=#{writer},
+		updateDate=sysdate
+		where bno = #{bno}
+	</update>
+	
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board_free where
+		<include refid="criteria"></include>
+		 bno > 0
+	</select>
+	
+	<update id="updateReplyCnt">
+		update board_free set replycnt = replycnt + #{amount} where bno = #{bno}
+	</update>
+	
+	<update id="updateViews">
+		update board_free set views = views+1 where bno = #{bno}
+	</update>
+	
+	
+	<!-- likes -->
+
+ 	<insert id="createBoardLike">
+           INSERT INTO tbl_boardlike (boardlikeid, bno, userid)
+           VALUES (seq_tbl_boardlike.nextval, #{bno}, #{userid})
+    </insert>
+
+    <delete id="deleteBoardLike">
+        DELETE FROM tbl_boardlike
+        WHERE bno = #{bno} AND userid = #{userid}
+    </delete>
+
+    <update id="updateBoardLike">   
+        update board_free set likes = (select count(boardlikeid) from tbl_boardlike where bno = #{bno}) where bno = #{bno}
+    </update>
+
+    <select id="getBoardLike" resultType="int">
+        SELECT COUNT(boardlikeid) FROM tbl_boardlike WHERE bno = #{bno}
+    </select>
+    
+    <select id="checkLike" resultType="int">
+    	select count(boardlikeid) 
+    	from tbl_boardlike 
+    	where bno= #{bno}
+    	and userid= #{userid}
+    </select>
+        
+	
+	<!-- .likes -->
+	
+	<!-- mypage -->
+	<select id="getTotalMyPageCount" resultType="int">
+		select count(*) from board_free where
+		<include refid="criteria"></include>
+		writer=#{userid}
+	</select>
+			
+	<select id="getListMyPageWithPaging" resultType="kr.kyungho.domain.FreeBoardVO">
+		<![CDATA[
+		select bno, title, content, writer, regdate, updatedate, replycnt, views, likes from 
+		(
+			select /*+INDEX_DESC(board_free pk_board_free)*/
+				rownum rn, bno, title, content, writer, regdate, updatedate, replycnt, views, likes
+			from board_free
+			where 
+		]]>	
+			<include refid="criteria"></include>
+		
+		<![CDATA[	
+			rownum <= #{pageNum} * #{amount}
+			and writer=#{userid}
+		)
+		where rn> (#{pageNum} -1) * #{amount}
+		and writer=#{userid}
+		
+		
+		]]>
+		
+	</select>
+	
+	<delete id="deleteSelected">
+		delete from board_free where bno= #{bno}
+	</delete>
+	
+	<delete id="deleteBoardLikeAll">
+		delete from tbl_boardlike where bno = #{bno}
+	</delete>
+		
+		
+	
+
+
+</mapper>

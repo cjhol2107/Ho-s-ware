@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.kyungho.mapper.ApprovalMapper">
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<!-- list 출력 위해 권한 검사 -->
+			<trim prefix="OR">
+				<choose>
+					<when test="auth.equals('user')">
+						apv_userid = #{userid}
+					</when>
+					<when test="auth.equals('member')">
+						midapprover = #{userid}
+					</when>	
+					<when test="auth.equals('admin')">
+						finalapprover = #{userid}
+					</when>	
+				</choose>
+			</trim>
+			<!-- 검색조건 -->
+			<foreach item='type' collection="typeArr">
+				<trim prefix="AND">
+					<choose>
+						<when test="type == 'T'.toString()">
+							apv_title like '%' ||#{keyword}||'%'
+						</when>
+						<when test="type == 'K'.toString()">
+							apv_kinds like '%' ||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<!-- count -->
+	<select id="getTotal" resultType="int">
+		select count(apv_ano) from tbl_approval
+		where 
+		<include refid="criteria"></include>
+		apv_status like '%'||#{listKinds}||'%'
+	</select>
+	
+	<select id="getYetApvCnt" resultType="int">
+		select count(apv_ano) from tbl_approval
+		where
+		<include refid="criteria"></include>
+		apv_status='미결재'
+	</select>
+	
+	<select id="getApvCnt" resultType="int">
+		select count(*) from tbl_approval
+		where
+		<include refid="criteria"></include>
+		apv_status = '승인(최종)'
+	</select>
+	
+	<select id="getCmpApvCnt" resultType="int">
+		select count(*) from tbl_approval
+		where 
+		<include refid="criteria"></include>
+		apv_status like '%'|| '반려(중간)' ||'%'
+	</select>
+	<select id="getFnlRejApvCnt" resultType="int">
+		select count(*) from tbl_approval
+		where 
+		<include refid="criteria"></include>
+		apv_status like '%'|| '반려(최종)' ||'%'
+	</select>
+	
+	<select id="getPrcApvCnt" resultType="int">
+		select count(*) from tbl_approval
+		where
+		<include refid="criteria"></include>
+		apv_status like '%' || '승인(중간)' ||'%'
+	</select>
+	
+	<!-- ./count -->
+	
+	<select id="getList" resultType="kr.kyungho.domain.ApprovalVO">
+	
+		<![CDATA[
+		
+		select apv_ano, apv_title, apv_kinds, apv_userid, apv_username, apv_dep_name, apv_status, apv_regdate, apv_fnlsigndate from 
+		( 
+			select /*+INDEX_DESC(tbl_approval pk_tbl_approval)*/ 
+				rownum rn, apv_ano, apv_title, apv_kinds, apv_userid, apv_username, apv_dep_name, apv_status, apv_regdate, apv_fnlsigndate
+			from tbl_approval 
+			where 
+			]]>
+				<include refid="criteria"></include>
+			<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+			and apv_status like '%'||#{listKinds}||'%'
+		)
+		where rn> (#{pageNum}-1) * #{amount}  
+		and apv_status like '%'||#{listKinds}||'%'
+				
+		]]>
+	</select>
+	
+	<!-- 결재정보 insert -->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="apv_ano" order="BEFORE"
+			resultType="long">
+			select seq_abv_ano.nextval from dual
+		</selectKey>
+		insert into tbl_approval(apv_ano, apv_title, apv_kinds, apv_userid, apv_username, apv_dep_name, midapprover, reg_comments, apv_position, apv_regdate )
+		values(#{apv_ano}, #{apv_title}, #{apv_kinds}, #{apv_userid}, #{apv_username}, #{apv_dep_name}, #{midapprover}, #{reg_comments}, #{apv_position}, sysdate)
+	</insert>
+	
+	<!-- 결재파일 insert -->
+	<insert id="insert">
+		insert into tbl_attach(uuid, uploadpath, filename, filetype, apv_ano)
+		values(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{apv_ano})
+	</insert>
+	
+	<!-- 결재자 정보 테이블 준비 -->
+	<insert id="insertAno">
+		insert into tbl_approver_info(apv_ano) values(#{apv_ano})
+	</insert>
+	
+	<!-- 사인 insert -->
+	<insert id="insertSign_my">
+		insert into tbl_sign(apv_ano , mysign_uuid, mysign_uploadPath, mysign_fileName)
+		values(#{apv_ano}, #{mysign_uuid}, #{mysign_uploadPath}, #{mysign_fileName})
+	</insert>
+	
+	<update id="insertSign_manager">
+		update tbl_sign set 
+		midsign_uuid=#{midsign_uuid}, 
+		midsign_uploadpath=#{midsign_uploadPath},
+		midsign_filename=#{midsign_fileName}
+		where apv_ano = #{apv_ano}
+	</update>
+	
+	<update id="insertSign_admin">
+		update tbl_sign set 
+		fnlsign_uuid=#{fnlsign_uuid}, 
+		fnlsign_uploadpath=#{fnlsign_uploadPath},
+		fnlsign_filename=#{fnlsign_fileName}
+		where apv_ano = #{apv_ano}
+	</update>
+	
+	<select id="findSignByAno" resultType="kr.kyungho.domain.SignVO">
+		select * from tbl_sign where apv_ano = #{apv_ano}
+	</select>
+	
+	<select id="getSignFileName" resultType="String">
+		select sign_filename from tbl_member where userid=#{userid}
+	</select>
+	
+	<!-- 조회 -->	
+	<select id="getApproval" resultType="kr.kyungho.domain.ApprovalVO">
+		select * from tbl_approval where apv_ano = #{apv_ano}
+	</select>
+	
+	<select id="findByAno" resultType="kr.kyungho.domain.AttachVO">
+		select * from tbl_attach where apv_ano = #{apv_ano}
+	</select>
+	
+	<!-- 중간승인 -->
+	<select id="getmidapprover" resultType="kr.kyungho.domain.MemberVO">
+		select * from tbl_member where member_position='팀장' and depname=(select depname from tbl_member where userid=#{userid})
+	</select>
+	
+	<insert id="insertComments">
+		update tbl_approval 
+		set apv_comments = #{apv_comments}, apv_status='승인(중간)', apv_midsigndate=sysdate, finalapprover='admin90'  
+		where apv_ano=#{apv_ano}
+	</insert>
+	
+	<update id="mid_reject">
+		update tbl_approval set apv_status='반려(중간)', apv_comments=#{apv_comments}, apv_midsigndate=sysdate where apv_ano=#{apv_ano}
+	</update>
+	
+	<update id="insert_apvInfo_mid">
+		update tbl_approver_info set(apv_mid_userid, apv_mid_name, apv_mid_depname, apv_mid_position) =
+			(
+			    select mem.userid, mem.username, mem.depname, mem.member_position
+			    from tbl_member mem, tbl_approval apv
+			    where apv.apv_ano=#{apv_ano}
+			    and apv.midapprover=#{midapprover}
+			    and mem.userid=apv.midapprover
+			)
+	</update>
+	
+	<!-- 최종승인 -->
+	<select id="getMidInfo" resultType="kr.kyungho.domain.approverInfoVO">
+		select * from tbl_approver_info where apv_ano = #{apv_ano}
+	</select>
+	
+	<insert id="insertComments_final">
+		update tbl_approval 
+		set apv_comments = #{apv_comments}, apv_status='승인(최종)', apv_fnlsigndate=sysdate 
+		where apv_ano=#{apv_ano}
+	</insert>
+	
+	<update id="insert_apvInfo_final">
+		update tbl_approver_info set(apv_fnl_userid, apv_fnl_name, apv_fnl_depname, apv_fnl_position) =
+			(
+			    select mem.userid, mem.username, mem.depname, mem.member_position
+			    from tbl_member mem, tbl_approval apv
+			    where apv.apv_ano=#{apv_ano}
+			    and apv.finalapprover=#{finalapprover}
+			    and mem.userid=apv.finalapprover
+			)
+	</update>
+	
+	<update id="fnl_reject">
+		update tbl_approval set apv_status='반려(최종)', apv_comments=#{apv_comments}, apv_fnlsigndate=sysdate where apv_ano=#{apv_ano}
+	</update>
+	
+	<!-- 전자결재삭제 -->
+	<delete id="delete_ApvInfo">
+		delete from tbl_approver_info where apv_ano = #{apv_ano}
+	</delete>
+	<delete id="delete_Sign">
+		delete from tbl_sign where apv_ano = #{apv_ano}
+	</delete>
+	<delete id="delete_Attach">
+		delete from tbl_attach where apv_ano = #{apv_ano}
+	</delete>
+	<delete id="delete_Approval">
+		delete from tbl_approval where apv_ano = #{apv_ano}
+	</delete>
+
+</mapper>
+
+
+
+	
+	
+	
+
+
+
