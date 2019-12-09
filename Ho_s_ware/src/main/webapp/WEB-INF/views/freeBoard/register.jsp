@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<head><link href="/resources/css/board/board.css" rel="stylesheet"></head>
 
 <body>
 	<div class="wrapper-custom">
@@ -13,10 +14,8 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<form role="form" action="/freeBoard/register" method="post" id="frm">
-						
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/> 
 							<input type="hidden" name="writer" value='<sec:authentication property="principal.username"/>'>
-							
 							<div class="form-group">
 								<label>제목</label> 
 								<input class="form-control" name='title' id='title'>
@@ -26,20 +25,18 @@
 								<textarea class="reg_content" name="content" id="content"></textarea>
 							</div>
 							<div class="text-center">
-								<button type="submit" id="savebutton" name="savebutton" class="btn btn-outline btn-info">등록</button>
-								<button type="reset" class="btn btn-outline btn-danger">취소</button>
+								<button type="submit" id="savebutton" name="savebutton" class="btn btn-default">등록</button>
+								<button type="reset" class="btn btn-default">취소</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.row -->
-	
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading" style="background-color:white">
+					<div class="panel-heading file">
 						<i class="fa fa-paperclip"></i> 
 						<label> 파일</label>
 					</div>

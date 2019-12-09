@@ -5,12 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FullCalendar Example</title>
     <link rel=" shortcut icon" href="image/favicon.ico">
-
-    <link rel="stylesheet" href="/resources/fullcalendar/vendor/css/fullcalendar.min.css" />
-    <link rel="stylesheet" href='/resources/fullcalendar/vendor/css/select2.min.css' />
-    <link rel="stylesheet" href='/resources/fullcalendar/vendor/css/bootstrap-datetimepicker.min.css' />
-    <link rel="stylesheet" href="/resources/fullcalendar/css/main.css">
-    
+    <link rel="stylesheet" href="/resources/css/fullcalendar/fullcalendar.min.css" />
+    <link rel="stylesheet" href='/resources/css/fullcalendar/select2.min.css' />
+    <link rel="stylesheet" href='/resources/css/fullcalendar/bootstrap-datetimepicker.min.css' />
+    <link rel="stylesheet" href="/resources/css/fullcalendar/main.css"> 
 </head>
 
 <body>
@@ -160,14 +158,15 @@
 	    <input type="hidden" id="username"name="username" value="${pinfo.member.userName}"/>
 	</sec:authorize>
 
-    <script src="/resources/fullcalendar/vendor/js/moment.min.js"></script>
-    <script src="/resources/fullcalendar/vendor/js/fullcalendar.min.js"></script>
-    <script src="/resources/fullcalendar/vendor/js/ko.js"></script>
-    <script src="/resources/fullcalendar/vendor/js/select2.min.js"></script>
-    <script src="/resources/fullcalendar/vendor/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/resources/fullcalendar/js/main.js"></script>
-    <script src="/resources/fullcalendar/js/addEvent.js"></script>
-    <script src="/resources/fullcalendar/js/editEvent.js"></script>
-    <script src="/resources/fullcalendar/js/etcSetting.js"></script>
+    <script src="/resources/js/calendar/vendor/js/moment.min.js"></script>
+    <script src="/resources/js/calendar/vendor/js/fullcalendar.min.js"></script>
+    <script src="/resources/js/calendar/vendor/js/ko.js"></script>
+    <script src="/resources/js/calendar/vendor/js/select2.min.js"></script>
+    <script src="/resources/js/calendar/vendor/js/bootstrap-datetimepicker.min.js"></script>
+    
+    <script src="/resources/js/calendar/main.js"></script>
+    <script src="/resources/js/calendar/addEvent.js"></script>
+    <script src="/resources/js/calendar/editEvent.js"></script>
+    <script src="/resources/js/calendar/etcSetting.js"></script>
 </body>
 </html>

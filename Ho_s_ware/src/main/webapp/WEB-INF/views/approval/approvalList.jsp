@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<head><link href="/resources/css/approval/approval.css" rel="stylesheet"></head>
 
 <body>
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="page-header">전자결재 
+			<h3 class="page-header">전자결재 수정테스트 
 				<c:choose>
 					<c:when test="${kinds eq '미결재'}"><span> - 미결재</span></c:when>
 					<c:when test="${kinds eq '승인(최종)'}"><span> - 승인</span></c:when>
@@ -16,7 +17,7 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="col-xs-6 text-left search" style="padding-left:0px">
+			<div class="col-xs-6 text-left search">
 				<form id='searchForm' action="/approval/approvalList" method='get'>
 					<div class="form-group input-group">
 						 <select class="form-control" name="type">
@@ -27,7 +28,7 @@
 							 <option value="K"
 								 <c:out value="${pageMaker.cri.type eq 'K'?'selected':'' }"/>>결재구분</option>
 						 </select>			
-						 <span class="input-group-btn" style="width:150px">
+						 <span class="input-group-btn listBtnSpan">
                              <input class="form-control" type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>' /> 
                              <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>' /> 
                              <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
@@ -36,7 +37,7 @@
 		            </div>
 				</form>
 			</div>
-	    	<div class="col-xs-6 text-right addbtn" style="padding-right:0px">
+	    	<div class="col-xs-6 text-right addbtn">
 		    	<button id="approvalAddBtn" type="button" class="btn btn-default">
 					<i class="fa fa-pencil"> 결재등록</i>								
 				</button>
@@ -46,9 +47,9 @@
 	    	</div>
 		</div>
 		<div class="col-lg-12" >
-			<table class="table table-hover" id="dataTables-example" style="margin-bottom: 0px;">
+			<table class="table table-hover" id="dataTables-example">
 				<thead>
-					<tr style="background-color: #f5f5f5">
+					<tr>
 						<th style="width:50px">선택</th>
 						<th style="width:100px">결재번호</th>
 						<th style="width:180px">결재구분</th>
@@ -63,9 +64,8 @@
 				</thead>
 				<c:forEach items="${list}" var="apv">
 					<tr>
-						<td class="customtd" style="width:50px; padding-left:17px">
-							<input type="checkbox" name="chBox" class="chBox"
-							value='<c:out value="${apv.apv_ano }"/>'>
+						<td class="customtd chktd">
+							<input type="checkbox" name="chBox" class="chBox" value='<c:out value="${apv.apv_ano }"/>'>
 						</td>
 						<td><c:out value="${apv.apv_ano }" /></td>
 						<td><c:out value="${apv.apv_kinds }" /></td>

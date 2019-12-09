@@ -1,16 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<style>
-.uploadResult ul {
-	padding-inline-start: 0px;
-}
-.uploadResult ul li {
-	list-style: none;
-	padding-inline-start: 0px;
-	padding-right:0px;
-	width:100%;
-}
-</style>
+<head><link href="/resources/css/approval/approval.css" rel="stylesheet"></head>
 
 <body>
 	<div class="row">
@@ -20,10 +9,10 @@
 	</div>
 	<div class="row">
 		<div class="panel panel-default">
-			<div class="panle-body" style="height: 100%;">
+			<div class="panel-body">
 				<div class="panel-custom">
-					<div class="col-lg-12" style="padding-left:0px; padding-bottom:20px;">
-						<div class="col-xs-6 text-left" style="padding-left:0px; width:350px;">
+					<div class="col-lg-12 get-titlewrap">
+						<div class="col-xs-6 text-left get-title">
 							<div class="form-group customdivider">
 								<div class="get-head text-left">제목 │ 
 									<span class="get-sub"> 
@@ -42,8 +31,8 @@
 						</div>
 					</div>
 					
-					<div class="col-lg-12" style="padding-left:0px; padding-bottom:20px;">
-						<div class="col-xs-6 text-left" style="padding-left:0px; width:350px;">
+					<div class="col-lg-12 get-titlewrap">
+						<div class="col-xs-6 text-left get-title">
 							<div class="form-group customdivider">
 								<div class="get-head text-left">결재분류 │ 
 									<span class="get-sub"> 
@@ -60,9 +49,9 @@
 							</div> 
 						</div>
 					</div>
-					<div class="form-group customdivider" style="padding-top:20px;">
-					<div class="get-head" style="padding-bottom:10px">결재라인</div>
-						<table class="table">
+					<div class="form-group customdivider divider">
+					<div class="get-head get-apvlineTitle">결재라인</div>
+						<table class="table signTable">
 							<thead>
 								<tr>
 									<th class="text-left">구분</th>
@@ -105,26 +94,25 @@
 					</div>
 	
 					<div class="uploadResult customdivider">
-						<div class="get-head" style="padding-bottom:10px;">결재파일</div>
+						<div class="get-head get-divider">결재파일</div>
 						<ul></ul>						
 					</div>
 					
-					<div class="form-group customdivider" style="padding-top:20px;">
-						<div class="get-head" style="padding-bottom:10px">등록의견</div>
+					<div class="form-group customdivider">
+						<div class="get-head">등록의견</div>
 						<input type="text" name="reg_comments"
-							class="form-control" style="height:40px; background-color:white;" value="${apv.reg_comments}" readonly="readonly">
+							class="form-control add-commentInput" value="${apv.reg_comments}" readonly="readonly">
 					</div>
 					
-					<div class="form-group customdivider" style="padding-top:20px;">
-					
-						<div class="get-head" style="padding-bottom:10px">중간결재의견</div>
+					<div class="form-group customdivider">
+						<div class="get-head">중간결재의견</div>
 						<input type="text" name="apv_comments"
-							class="form-control" style="height:40px; background-color:white;" value="${apv.apv_comments}" readonly="readonly">
+							class="form-control add-commentInput" value="${apv.apv_comments}" readonly="readonly">
 					</div>
 						
 					<div class="text-center">
-						<button type="submit" id="list" class="btn btn-outline btn-info"><i class="fa fa-list"> 목록</i></button>
-						<button type="submit" id="approval" class="btn btn-outline btn-success"><i class="fa fa-edit"> 결재하기</i></button>
+						<button type="submit" id="list" class="btn btn-default"><i class="fa fa-list"> 목록</i></button>
+						<button type="submit" id="approval" class="btn btn-default"><i class="fa fa-edit"> 결재하기</i></button>
 					</div>
 				</div>
 			</div>
@@ -150,9 +138,9 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id='modalRegisterBtn' type="button" class="btn btn-outline btn-success"><i class="fa fa-check"> 승인</i></button>
-					<button id='modalReturnBtn' type="button" class="btn btn-outline btn-danger"><i class="fa fa-share"> 반려</i></button>
-					<button id='modalCloseBtn' type="button" class="btn btn-outline btn-primary"><i class="fa fa-times"> 닫기</i></button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-default"><i class="fa fa-check"> 승인</i></button>
+					<button id='modalReturnBtn' type="button" class="btn btn-default"><i class="fa fa-share"> 반려</i></button>
+					<button id='modalCloseBtn' type="button" class="btn btn-default"><i class="fa fa-times"> 닫기</i></button>
 				</div>
 			</div>
 		</div>

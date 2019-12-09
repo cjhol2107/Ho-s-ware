@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<head><link href="/resources/css/approval/approval.css" rel="stylesheet"></head>
 
-<style>
-.uploadResult ul {
-	padding-inline-start: 0px;
-}
-.uploadResult ul li {
-	list-style: none;
-	padding-inline-start: 0px;
-	padding-right:0px;
-	width:100%;
-
-}
-</style>
 <body>
 	<div class="row">
 		<div class="col-lg-12">
@@ -20,11 +9,10 @@
 	</div>
 	<div class="row">
 		<div class="panel panel-default">
-			<div class="panle-body" style="height: 100%;">
-				<div style="padding-left: 25%; padding-right: 25%; padding-top: 50px; padding-bottom: 200px">
+			<div class="panel-body">
+				<div class="pagewrap">
 					<form action="/approval/approvalAdd" method="post" id="approvalForm" onsubmit="return checkForm()">
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
-						 
 						<div class="form-group customdivider">
 							<label>제목</label> 
 							<input type="text" name="apv_title" class="form-control" placeholder="제목">
@@ -44,7 +32,7 @@
 						<sec:authentication property="principal" var="pinfo" />
 							<label>소속 / 이름</label>
 							<input type="text"
-								class="form-control" readonly="readonly" style="background-color:white"
+								class="form-control" readonly="readonly"
 								value="${pinfo.member.userName} / ${pinfo.member.depName}">
 							<input type="hidden" name="apv_userid" value="${pinfo.username}">
 							<input type="hidden" name="apv_username" value="${pinfo.member.userName}">
@@ -57,31 +45,30 @@
 							<c:choose>
 								<c:when test="${pinfo.member.depName eq '개발1팀'}">
 									<input type="text" class="form-control" readonly="readonly" 
-									style="background-color:white" value="개발1팀 / manager80">
+									value="개발1팀 / manager80">
 									<input type="hidden" name="midapprover" value="manager80">
 								</c:when>
 								<c:when test="${pinfo.member.depName eq '개발2팀'}">
 									<input type="text" class="form-control" readonly="readonly" 
-									style="background-color:white" value="개발2팀 / manager81">
+									value="개발2팀 / manager81">
 									<input type="hidden" name="midapprover" value="manager81">
 								</c:when>
 							</c:choose>
 						</div>
 			
-						<div class="form-group" style="padding-bottom:0px;" >
+						<div class="form-group add-fileInputDiv">
 							<label>결재파일첨부</label>
 							<input type="file" name="uploadFile" id="inputFile">
 						</div>
 											
-						<div class="uploadResult" style="padding-bottom:17px;">
+						<div class="uploadResult">
 							<ul>
 							</ul>						
 						</div>
 						
-						<div class="form-group" style="padding-bottom:17px;">
+						<div class="form-group add-commentDiv">
 							<label>등록의견</label>
-							<input type="text" name="reg_comments"
-								class="form-control" style="height:60px">
+							<input type="text" name="reg_comments" class="form-control add-commentInput">
 						</div>
 						
 						<label>결재라인</label>

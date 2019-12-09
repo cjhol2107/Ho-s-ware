@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<head><link href="/resources/css/mail/mail.css" rel="stylesheet"></head>
 
 <div class="row">
 	<div class="col-lg-12">
@@ -6,9 +7,9 @@
 	</div>
 </div>
 
-<div class='row' style="padding-bottom:10px">
+<div class='row rowdiv'>
 	<div class="col-xs-12">			
-			 <div class="col-xs-6 text-left" style="padding-left:0px">
+			 <div class="col-xs-6 text-left search">
 				<form id='searchForm' action="/mail/getSent" method='get'>
 					<div class="form-group input-group">
 							<select class="form-control" name="type">
@@ -21,7 +22,7 @@
 								<option value="S"
 									<c:out value="${pageMaker.cri.type eq 'S'?'selected':'' }"/>>보낸사람</option>
 							</select>
-							<span class="input-group-btn" style="width:150px">
+							<span class="input-group-btn searchBtnSpan">
                                 <input class="form-control" type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>' /> 
                                 <input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>' /> 
                                 <input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
@@ -30,23 +31,23 @@
                      </div>
 				</form>
 			</div> 		
-			<div class="col-lg-6 text-right" style="padding-right:0px"> 
-				<button class="btn btn-outline btn-danger" id="deleteSelected_btn">
+			<div class="col-lg-6 text-right regBtnDiv"> 
+				<button class="btn btn-default" id="deleteSelected_btn">
 					<i class="fa fa-trash-o"> 삭제</i>
 				</button> 
-				<button id='writeBtn' class="btn btn-outline btn-primary">
+				<button id='writeBtn' class="btn btn-default">
 					<i class="fa fa-pencil"> 쪽지쓰기</i>								
 				</button>
 			</div>		
 	</div>
 </div>
 
-<div class="row" style="padding-bottom:0px;">
+<div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<!-- /.panel-heading -->
 			<div class="panel-body">
-				<table class="table table-hover" id="dataTables-example" style="margin-bottom:0px;">
+				<table class="table table-hover" id="dataTables-example">
 					<thead>
 						<tr>
 							<th class="text-left" style="width:50px" >선택</th>
@@ -73,10 +74,10 @@
 									<c:out value="${mail.eml_title }" />
 								</a>
 							</td>
-							<td class="text-center" style="width:20%">
+							<td class="text-center rcvid">
 								<c:out value="${mail.eml_rcvid }" />
 							</td>
-							<td class="text-center" style="width:20%">
+							<td class="text-center snddate">
 								<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${mail.snddate }" />
 							</td>
 						</tr>
@@ -90,10 +91,9 @@
                         </div>
 					</div> 	
 				</div>
-				
 				<!-- 페이징div -->
 				<div class='text-center'>
-					<ul class="pagination" style="margin-bottom:0px;">
+					<ul class="pagination">
 						<c:if test="${pageMaker.prev}">
 							<li class="paginate_button previous">
 							<a href="${pageMaker.startPage -1 }"><i class="fa fa-arrow-left"></i></a></li>
@@ -104,7 +104,6 @@
 							<a href="${num }">${num }</a>
 							</li>
 						</c:forEach>
-
 						<c:if test="${pageMaker.next }">
 							<li class="paginate_button next">
 								<a href="${pageMaker.endPage+1 }"><i class="fa fa-arrow-right"></i></a>

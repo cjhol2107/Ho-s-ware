@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<head><link href="/resources/css/mail/mail.css" rel="stylesheet"></head>
 
-	<div class="row" style="padding-bottom:0px">
+	<div class="row">
 		<div class="col-lg-12">
 			<h4 class="page-header-rcvmail2">쪽지 쓰기</h4>
 		</div>
 	</div>
 	
-	<div style="padding-left: 25%; padding-right: 25%; padding-top: 50px; padding-bottom: 200px">
+	<div class="pagewrap">
 		<div class="row">
 			<div class="col-lg-12">
 				<form action="/mail/send" method="post" id="frm">
@@ -29,7 +30,7 @@
 	
 		<div class='row'>
 			<div class="col-xs-12">			
-				<div class="col-lg-12 text-center" style="padding-right:0px"> 
+				<div class="col-lg-12 text-center"> 
 					<button id="list" class="btn btn-outline btn-primary">
 						<i class="fa fa-list"> 목록</i>								
 					</button>
