@@ -1,5 +1,6 @@
 var csrfHeaderName = $("meta[name='_csrf_header']").attr("content");
 var csrfTokenValue = $("meta[name='_csrf']").attr("content");
+
 // 사이드바 메뉴 접근 제한 (로그인유도)
 $(".sidebar-nav ul li a").on("click",function(e){
 	e.preventDefault();

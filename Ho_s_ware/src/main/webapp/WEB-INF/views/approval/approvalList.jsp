@@ -4,7 +4,7 @@
 <body>
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="page-header">전자결재 수정테스트 
+			<h3 class="page-header">전자결재 
 				<c:choose>
 					<c:when test="${kinds eq '미결재'}"><span> - 미결재</span></c:when>
 					<c:when test="${kinds eq '승인(최종)'}"><span> - 승인</span></c:when>

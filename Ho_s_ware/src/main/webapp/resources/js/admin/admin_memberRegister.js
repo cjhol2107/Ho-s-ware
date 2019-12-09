@@ -197,9 +197,7 @@ function checkForm(){
 			}
 	}
 	else{
-		
-		alert("id폼체크성공!");
-		
+	
 		var fullPhoneNumber = "";
 		var fullExtensionNumber = "";
 		var fullAddress = "";
@@ -218,7 +216,7 @@ function checkForm(){
 
 //파일input 변화시
 $("#photoInput").change(function(e){
-	  $("#photoInput").val("");
+	  
 	  console.log("file change");
 	  var formData = new FormData();		    
 	  var inputFile = $("input[name='photoInput']");  

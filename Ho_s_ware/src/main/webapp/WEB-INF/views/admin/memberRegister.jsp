@@ -11,8 +11,8 @@
 	</div>
 	<div class="row">
 		<div class="panel panel-default">
-			<div class="panle-body" style="height: 100%;">
-				<div style="padding-left: 25%; padding-right: 25%; padding-top: 50px; padding-bottom: 200px">
+			<div class="panle-body">
+				<div class="pagewrap">
 					<form action="/admin/memberRegister" id="memberRegisterForm" name="form" onsubmit="return checkForm()" method="post">
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 						 <div class="table-responsive table-bordered">
@@ -22,7 +22,7 @@
 						 				<th>사진등록</th>
 						 				<td>
 						 					<div class="col-lg-12">
-						 						<div class="col-lg-3 test12">
+						 						<div class="col-lg-3">
 								 					<div class="uploadResult">
 														<ul>
 														</ul>						

@@ -1,7 +1,7 @@
-.table>tbody>tr>td{
+/* .table>tbody>tr>td{
 		padding-top:15px;
 		padding-bottom:15px;
-	}
+	} */
 .table>tbody>tr>th{
 	font-size:14px;
 	padding-left:20px;
@@ -56,4 +56,24 @@ get-2nd-box{
 }
 .btndiv{
 	padding-bottom:10px;
+}
+
+.search{
+	padding-left:0px;
+}
+
+.listBtnSpan{
+	width:150px;
+}
+
+.registerBtnDiv{
+	padding-top:10px;
+}
+.pagination{
+	padding-top:20px;
+	
+}
+
+.addbtn{
+	padding-right:0px;
 }

@@ -35,4 +35,11 @@
 </div>
 
 </body>
+
+<script>
+$("div").remove(".sidebar");
+$("nav").remove(".navbar");
+$("#page-wrapper").attr("id","");
+</script>
+
 </html>
