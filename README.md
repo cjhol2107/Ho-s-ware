@@ -22,8 +22,10 @@
 - Framework : Spring 5.0.7, Spring Security, Mybatis 3.4, Bootstrap3.0
 - Technology : JDBC, HTML 5.0, CSS3, Javascript, jQuery, ajax
 - Tool : Eclipse(Photon), sqldeveloper
-- api : 다음 주소검색, 네이버 스마트에디터, Fullcalendar, jQueryContext, Viewr JS
+- api : 다음 주소검색, 네이버 스마트에디터, jQueryContext, Viewr JS, Bcrypt
+- library : Fullcalendar, lombok, websocket, quartz
 
+﻿
 
 ### 상세화면설명
 - https://blog.naver.com/cjhol2107/221730628406
