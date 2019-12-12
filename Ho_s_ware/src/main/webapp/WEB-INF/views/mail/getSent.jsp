@@ -32,10 +32,10 @@
 				</form>
 			</div> 		
 			<div class="col-lg-6 text-right regBtnDiv"> 
-				<button class="btn btn-default" id="deleteSelected_btn">
+				<button class="btn btn-outline btn-danger" id="deleteSelected_btn">
 					<i class="fa fa-trash-o"> 삭제</i>
 				</button> 
-				<button id='writeBtn' class="btn btn-default">
+				<button id='writeBtn' class="btn btn-outline btn-primary">
 					<i class="fa fa-pencil"> 쪽지쓰기</i>								
 				</button>
 			</div>		

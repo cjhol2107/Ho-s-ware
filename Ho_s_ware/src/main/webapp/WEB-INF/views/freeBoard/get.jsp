@@ -42,7 +42,7 @@
 							<sec:authentication property="principal" var="pinfo" />
 							<sec:authorize access="isAuthenticated()">
 								<c:if test="${pinfo.username eq board.writer}">
-									<button data-oper="modify" class="btn btn-default">
+									<button data-oper="modify" class="btn btn-outline btn-warning">
 										<i class="fa fa-edit"> 수정</i>
 									</button>
 								</c:if>
@@ -50,7 +50,7 @@
 							<button id="heart" class="btn btn-danger heartBtn">
 								<i id="heartBtn" class="fa fa-heart"> ${board.likes}</i>
 							</button>
-							<button data-oper="list" class="btn btn-default">
+							<button data-oper="list" class="btn btn-outline btn-info">
 								<i class="fa fa-list"> 목록</i>
 							</button>
 						</div>
@@ -82,7 +82,7 @@
 					<div class="panel-heading file">
 						<i class="fa fa-comments fa-fw"></i> <label> 댓글 <c:out value="${board.replyCnt }" /></label>
 						<sec:authorize access="isAuthenticated()">
-							<button id="addReplyBtn" class="btn btn-outline btn-primary btn-xs pull-right">댓글작성</button>
+							<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">댓글작성</button>
 						</sec:authorize>
 					</div>
 					<div class="panel-body">

@@ -25,8 +25,8 @@
 								<textarea class="reg_content" name="content" id="content"></textarea>
 							</div>
 							<div class="text-center">
-								<button type="submit" id="savebutton" name="savebutton" class="btn btn-default">등록</button>
-								<button type="reset" class="btn btn-default">취소</button>
+								<button type="submit" id="savebutton" name="savebutton" class="btn btn-outline btn-primary">등록</button>
+								<button type="reset" class="btn btn-outline btn-danger">취소</button>
 							</div>
 						</form>
 					</div>

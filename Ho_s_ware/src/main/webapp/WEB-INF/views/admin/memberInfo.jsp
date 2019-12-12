@@ -10,9 +10,9 @@
 	</div>
 	<div class="row">
 		<div class="text-right btndiv">
-			<button class="btn btn-default" id="memberListBtn"><i class="fa fa-list"></i> 목록</button>
-			<button class="btn btn-default" id="memberEditBtn"><i class="fa fa-edit"></i> 수정</button>
-			<button class="btn btn-default" id="memberDelBtn"><i class="fa fa-trash-o"></i> 삭제</button>
+			<button class="btn btn-outline btn-info" id="memberListBtn"><i class="fa fa-list"></i> 목록</button>
+			<button class="btn btn-outline btn-warning" id="memberEditBtn"><i class="fa fa-edit"></i> 수정</button>
+			<button class="btn btn-outline btn-danger" id="memberDelBtn"><i class="fa fa-trash-o"></i> 삭제</button>
 		</div>
 		<div class="panel panel-default">
 			<div class="panle-body">

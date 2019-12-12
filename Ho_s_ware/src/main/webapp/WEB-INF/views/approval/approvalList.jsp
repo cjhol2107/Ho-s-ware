@@ -38,10 +38,10 @@
 				</form>
 			</div>
 	    	<div class="col-xs-6 text-right addbtn">
-		    	<button id="approvalAddBtn" type="button" class="btn btn-default">
+		    	<button id="approvalAddBtn" type="button" class="btn btn-outline btn-primary">
 					<i class="fa fa-pencil"> 결재등록</i>								
 				</button>
-		    	<button id="approvalRemoveBtn" type="button" class="btn btn-default">
+		    	<button id="approvalRemoveBtn" type="button" class="btn btn-outline btn-danger">
 					<i class="fa fa-trash-o"> 결재삭제</i>								
 				</button>
 	    	</div>

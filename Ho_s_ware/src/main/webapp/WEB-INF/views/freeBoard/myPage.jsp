@@ -43,10 +43,10 @@
 					</form>
 			</div>
 			<div class="col-xs-6 text-right addbtn">
-				<button class="btn btn-default" id="deleteSelected_btn">
+				<button class="btn btn-outline btn-danger" id="deleteSelected_btn">
 					<i class="fa fa-trash-o"> 삭제</i>
 				</button> 
-				<button id='writeBtn' type="button" class="btn btn-default">
+				<button id='writeBtn' type="button" class="btn btn-outline btn-primary">
 					<i class="fa fa-pencil"> 글쓰기</i>								
 				</button>
 			</div>	

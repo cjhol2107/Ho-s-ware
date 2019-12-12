@@ -41,7 +41,7 @@
 			</div>
 									
 	    	<div class="col-xs-6 text-right addbtn">
-		    	<button id='writeBtn' type="button" class="btn btn-default">
+		    	<button id='writeBtn' type="button" class="btn btn-outline btn-primary">
 					<i class="fa fa-pencil"> 글쓰기</i>								
 				</button>
 	    	</div>

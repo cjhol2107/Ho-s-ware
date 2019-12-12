@@ -33,12 +33,12 @@
 							</textarea>
 						</div>
 						<div class="text-center">
-							<button type="submit" data-oper="list" class="btn btn-default"><i class="fa fa-list"> 목록</i></button>
+							<button type="submit" data-oper="list" class="btn btn-outline btn-info"><i class="fa fa-list"> 목록</i></button>
 								<sec:authentication property="principal" var="pinfo"/>
 								<sec:authorize access="isAuthenticated()">
 										<c:if test="${pinfo.username eq board.writer }">
-											<button type="submit" data-oper="remove" class="btn btn-default"><i class="fa fa-trash-o"> 삭제</i></button>
-											<button type="submit" id="modify" class="btn btn-default"><i class="fa fa-edit"> 수정</i></button>
+											<button type="submit" data-oper="remove" class="btn btn-outline btn-danger"><i class="fa fa-trash-o"> 삭제</i></button>
+											<button type="submit" id="modify" class="btn btn-outline btn-warning"><i class="fa fa-edit"> 수정</i></button>
 										</c:if>
 								</sec:authorize>
 						</div>

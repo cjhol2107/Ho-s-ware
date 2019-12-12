@@ -36,13 +36,13 @@
 	<div class='row'>
 		<div class="col-xs-12">			
 			<div class="col-lg-12 text-right regBtnDiv"> 
-				<button id="remove" class="btn btn-default">
+				<button id="remove" class="btn btn-outline btn-danger">
 					<i class="fa fa-trash-o"> 삭제</i>
 				</button> 
-				<button id='reply' class="btn btn-default">
+				<button id='reply' class="btn btn-outline btn-success">
 					<i class="fa fa-reply"> 답장</i>								
 				</button>
-				<button id="list" class="btn btn-default">
+				<button id="list" class="btn btn-outline btn-info">
 					<i class="fa fa-list"> 목록</i>								
 				</button>
 			</div>		

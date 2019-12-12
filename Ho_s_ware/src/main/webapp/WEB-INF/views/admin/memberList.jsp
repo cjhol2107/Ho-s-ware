@@ -40,10 +40,10 @@
 			</div>
 									
 	    	<div class="col-xs-6 text-right addbtn">
-		    	<button id='registerBtn' type="button" class="btn btn-default">
+		    	<button id='registerBtn' type="button" class="btn btn-outline btn-primary">
 					<i class="fa fa-pencil"> 사원등록</i>								
 				</button>
-		    	<button id='removeBtn' type="button" class="btn btn-default">
+		    	<button id='removeBtn' type="button" class="btn btn-outline btn-danger">
 					<i class="fa fa-trash-o"> 삭제</i>								
 				</button>
 	    	</div>

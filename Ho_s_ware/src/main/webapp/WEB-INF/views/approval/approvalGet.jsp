@@ -132,8 +132,8 @@
 					</div>
 					
 					<div class="text-center">
-						<button type="submit" id="list" class="btn btn-default"><i class="fa fa-list"> 목록</i></button>
-						<button type="submit" id="remove" class="btn btn-default"><i class="fa fa-trash-o"> 삭제</i></button>
+						<button type="submit" id="list" class="btn btn-outline btn-info"><i class="fa fa-list"> 목록</i></button>
+						<button type="submit" id="remove" class="btn btn-outline btn-danger"><i class="fa fa-trash-o"> 삭제</i></button>
 					</div>
 				</div>
 			</div>

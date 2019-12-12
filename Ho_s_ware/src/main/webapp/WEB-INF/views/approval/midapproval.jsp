@@ -107,8 +107,8 @@
 					</div>
 					
 					<div class="text-center">
-						<button type="submit" id="list" class="btn btn-default"><i class="fa fa-list"> 목록</i></button>
-						<button type="submit" id="approval" class="btn btn-default"><i class="fa fa-edit"> 결재하기</i></button>					
+						<button type="submit" id="list" class="btn btn-outline btn-info"><i class="fa fa-list"> 목록</i></button>
+						<button type="submit" id="approval" class="btn btn-outline btn-success"><i class="fa fa-edit"> 결재하기</i></button>					
 					</div>
 				</div>
 			</div>
@@ -134,8 +134,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id='modalRegisterBtn' type="button" class="btn btn-default"><i class="fa fa-check"> 승인</i></button>
-					<button id='modalReturnBtn' type="button" class="btn btn-default"><i class="fa fa-share"> 반려</i></button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-outline btn-success"><i class="fa fa-check"> 승인</i></button>
+					<button id='modalReturnBtn' type="button" class="btn btn-outline btn-danger"><i class="fa fa-share"> 반려</i></button>
 					<button id='modalCloseBtn' type="button" class="btn btn-default"><i class="fa fa-times"> 닫기</i></button>
 				</div>
 			</div>
