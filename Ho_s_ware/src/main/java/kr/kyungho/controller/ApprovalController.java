@@ -193,7 +193,7 @@ public class ApprovalController {
 		//최종 업로드 경로
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
 		
-		//경로가 만들어지지 않았으면 make
+		//경로가 만들어지지 않았으면 makeD
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}

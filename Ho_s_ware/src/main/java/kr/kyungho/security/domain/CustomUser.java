@@ -1,4 +1,4 @@
-package org.zerock.security.domain;
+package kr.kyungho.security.domain;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
