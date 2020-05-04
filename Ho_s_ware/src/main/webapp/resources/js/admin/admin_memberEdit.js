@@ -1,6 +1,3 @@
-console.log("edit.js..");
-
-
 (function(){
 	
 	var userid = $("input[name='userid']").val();
@@ -142,9 +139,6 @@ function checkForm(){
 			}
 	}
 	else{
-		
-		alert("id폼체크성공!");
-		
 		var fullPhoneNumber = "";
 		var fullExtensionNumber = "";
 		var fullAddress = "";
