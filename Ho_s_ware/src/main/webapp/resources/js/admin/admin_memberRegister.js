@@ -24,7 +24,6 @@ function daumPost() {
 // 비밀번호 일치 확인
 function passwordCheck() {
 	
-	console.log("ss");
 	var pw = $("#pw").val();
 	var pwcheck = $("#pwcheck").val();
 
@@ -38,8 +37,6 @@ function passwordCheck() {
 function idCheck() {
 
 	var id = $("#id").val();
-
-	console.log("id: " + id);
 
 	$.ajax({
 		type : "POST",
@@ -67,8 +64,8 @@ function checkExtension(fileName){
 	
 	var regex = new RegExp("(.*?)\.(jpg|png)$");
     if(!regex.test(fileName)){
-      	alert("사진파일만 등록가능합니다!");
-      	return false;
+	alert("사진파일만 등록가능합니다!");
+	return false;
     }
     return true;
 } 
@@ -99,10 +96,6 @@ function checkForm(){
 	var email=$("#email").val();
 	var id=$("#id").val();
 	var photoInput=$("#photoInput").val();
-	console.log("id: "+id);
-	console.log("email: "+email);
-	console.log("photoInput: "+photoInput);
-	
 	var emailregExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var idregExp = /^[A-Za-z0-9+]*$/;
 	
@@ -217,7 +210,6 @@ function checkForm(){
 //파일input 변화시
 $("#photoInput").change(function(e){
 	  
-	  console.log("file change");
 	  var formData = new FormData();		    
 	  var inputFile = $("input[name='photoInput']");  
 	  var files = inputFile[0].files;
